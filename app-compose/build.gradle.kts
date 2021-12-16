@@ -66,3 +66,14 @@ dependencies {
     androidTestImplementation(AndroidTestingLib.ANDROIDX_TEST_RULES)
     androidTestImplementation(AndroidTestingLib.COMPOSE_TEST_JUNIT)
 }
+
+tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinCompile::class.java).configureEach {
+    val para = mutableListOf<String>()
+    para.addAll(kotlinOptions.freeCompilerArgs)
+    para.add("-Xallow-jvm-ir-dependencies")
+    para.add("-P")
+    para.add("plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true")
+    kotlinOptions {
+        freeCompilerArgs = para
+    }
+}
